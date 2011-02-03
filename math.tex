@@ -20,15 +20,18 @@
 \ExerciseHeaderOrigin\ignorespaces}
 \renewcommand{\AnswerListHeader}{\textbf{\ExerciseHeaderNB.\ }}
 
-\title{Some Useful Math for BADS}
+\title{Some Useful Math for the Analysis of Algorithms}
 \author{Thore Husfeldt}
+
+\date{\small Revision {\tt \GITAbrHash}$\ldots$, \GITAuthorDate, \GITAuthorName}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-  This note covers some of the mathemematical preliniaries needed to
+  This note covers some of the mathemematical prelimiaries needed to
   enjoy [SW], the textbook \emph{Algorithms, 4th ed.} by Sedgewick and
-  Wayne.
+  Wayne and is focussed on the B.Sc. course Algorithms and Data Structures
+  (BADS) at ITU Copenhagen.
 \end{abstract}
 
 \section{Some functions encountered it the analysis of algorithms}
@@ -41,8 +44,8 @@ number $b$ (\emph{the base}) we define a shorthand for iterated
 multiplication, called exponentiation:
 \[ b^n = \underbrace{b\times b\times \cdots\times b}_{n \text{ times}}\,.\] 
 (Most of the time $b$ will just be $2$, sometimes it's $10$. In maths
-and physics, it's often the number $e=2.71\ldots$ and one then uses
-the notation $\exp(n)$ for $e^n$, called \emph{the exponential function}.)
+and physics, it's often the number $\mathrm e=2.7182\ldots$ and one then uses
+the notation $\exp(n)$ for $\mathrm e^n$, called \emph{the exponential function}.)
 
 
 \begin{marginfigure}
@@ -58,13 +61,16 @@ the notation $\exp(n)$ for $e^n$, called \emph{the exponential function}.)
 \end{marginfigure}
 
 \begin{ExerciseList}
-\Exercise True or false: $b^{nm}=b^n+b^m$ for $n,m\geq 1$.
-\Exercise True or false: $b^{n+m}=b^nb^m$ for $n,m\geq 1$.
-\Exercise True or false:  $b^{n-m}=b^n/b^m$ for $n,m\geq 1$.
-\Exercise True or false: $(ab)^{n}=a^n+b^n$ for $n\geq 1$.
-\Exercise True or false: $(ab)^{n}=a^nb^n$ for $n\geq 1$.
-\Exercise True or false: $(a+b)^{n}=a^n+b^n$ for $n\geq 1$.
-\Exercise True or false: $(b^n)^m=b^{nm}$ for $n,m\geq 1$.
+\Exercise For $b>1$ and $n,m\geq 1$, which is true:
+  $b^{nm}=b^n+b^m$?
+  $b^{nm}= (b^n)^m$?
+\Exercise For $n,m\geq 1$, true or false: 
+  $b^{n+m}=b^nb^m$?
+  $b^{n-m}=b^n/b^m$?
+\Exercise For $a,b>1$ and $n,m\geq 1$, which is true:
+  $(ab)^{n}=a^n+b^n$? 
+  $(ab)^{n}=a^nb^n$?
+  $(a+b)^{n}=a^n+b^n$?
 \Exercise What would be a useful convention for what $b^0$ should
 mean?
 \Exercise Express as a power of $2$: $2\cdot 2^2$, $(2^2)^3$,
@@ -74,11 +80,11 @@ $2^{(2^2)}$, $2^n+ 2^n$.
 There is a way to define what $b^x$ should mean even when $x$ is
 negative, or not even an integer, so that $x\mapsto b^x$ becomes a
 smooth function defined for all reals that agrees $b^n$ when $x=n$ is
-an integer.  This definition requires calculus and lies outside of our
+an integer. This definition requires calculus and lies outside of our
 scope.  The notation makes good sense all the way, for example
-$b^{-1}$ equals $1/b$ so that $b^{N+1}b^{-1}= b^N$, and 
-$b^{\frac{1}{2}}$ equals  $\sqrt b$ so that
-$(b^{\frac{1}{2}})^2 = b^{\frac{1}{2}\cdot 2} = b$.
+$b^{-1}$ equals $1/b$ so that $b^{N+1}b^{-1}= b^N$, and
+$b^{\frac{1}{2}}$ equals $\sqrt b$ so that $(b^{\frac{1}{2}})^2 =
+b^{\frac{1}{2}\cdot 2} = b$.
 
 \subsection{Positional notation}
 
@@ -86,7 +92,7 @@ One of Civilisation's big breakthroughs is to use exponentiation to
 denote numbers is a very compact way. When we write 7143 we mean \[
 7\cdot 10^3 + 1\cdot 10^2 + 4\cdot 10^1 + 3\cdot 10^0 \,.\]
 To see how clever this is, compare to the notation used in ancient Rome
-(MMMMMMMCXLIII), or worse, to unary notation. 
+({\sc mmmmmmmcxliii}), or worse, to unary notation. 
 Our notation is called ``digital'' or ``base 10'' (because
 $b=10$). \marginnote{{\bf digit}, noun, from Latin \emph{digitus}
   'finger, toe'. 1. Any of the numerals $0$ to
@@ -95,7 +101,7 @@ Positional notation is particularly clever when performing
 arithmetic, 
 and many people are comfortable using this, having been trained to find
 even complicated operations like $100-1=99$ natural. (Compare to the
-more straightforward $\mathrm{C}-\mathrm{I} = \mathrm{IC}$.)
+more straightforward $\mbox{\sc c}-\mbox{\sc i} = \mbox{\sc ic}$.)
 
 \begin{marginfigure}
 \begin{verbatim}
@@ -112,21 +118,18 @@ more straightforward $\mathrm{C}-\mathrm{I} = \mathrm{IC}$.)
 
 \emph{Binary} notation is the positional number system using the base
 $b=2$.
-It has only two numerals (sometimes also called ``digits'' or ``binary
-digits''), $0$ and $1$.
-The binary number $1001001$ has value ,
+It has only two numerals (called ``binary
+digits'' or ``bits''), $0$ and $1$.
+The binary number $1101111100111$ has value 
+\[ 2^{12} + 2^{11} + 2^9 + 2^8 + 2^7 +2^6 + 2^5 + 2^2 + 2^1 +2^0   \]
 which happens to be 7143 in base 10. 
-
-Just like base 10 makes powers of 10 look good, binary notation makes
-powers of 2 look good. \marginnote{There are only 10 kinds of
-  people. Those who understand binary and those who don't.}
 
 \begin{ExerciseList}
 \Exercise
-Express 8 in binary. What is $10010_2$?
-\Exercise Add $100101$ and $001011$ using the school algorithm for
-addition.
-\Exercise Multiply $100101$ and $001011$ using the school algorithm for multiplication.
+Express 8 in binary. What is the binary number $10010$ in base 10?
+\Exercise Add the binary numbers $100101$ and $1011$ using the
+school algorithm for addition.
+\Exercise Multiply the binary numbers $100101$ and $1011$ using the school algorithm for multiplication.
 \end{ExerciseList}
 
 
@@ -152,16 +155,20 @@ uniquely we would need to observe that $x\mapsto b^x$ is a bijection
 from the reals to the positive reals for $b> 1$. But at this point
 we have stopped pretending to give a rigorous presentation anyway.)
 
-Note that $\log_1 5$ or $\lg 0$ and $\lg -1$ are just meaningless collections of
-ink, like $8+\times$ or $\frac{\sqrt{} }{4}$.
+Note that $\log_1 5$ or $\lg 0$ and $\lg -1$ are just meaningless
+collections of ink, like $8+\times$ or $\frac{\sqrt{} }{4}$.
 
 \begin{ExerciseList}
 \Exercise What is $\lg 2$? What is $\log_b b$?
 \Exercise What is $\lg 2^x$? What is $\log_b b^x$?
-\Exercise True or false: $\log_b (NM)= \log_b N + \log_b M$.
-\Exercise True or false: $\log_b (N^x)= x\log_b N.$
-\Exercise True or false: $\log_b (N+M)= (\log_b N)( \log_b M)$.
-\Exercise Show $\log_a N = \log_b N / \log_b a$.
+\Exercise For $b>1$ and $N,M>0$, which is true: 
+  $\log_b (NM)= (\log_b N) + (\log_b M)$? 
+  $\log_b (NM)= (\log_b N)( \log_b M)$? 
+  $\log_b (N+M)= (\log_b N)( \log_b M)$? 
+  $\log_b (N+M)= (\log_b N) + ( \log_b M)$? 
+\Exercise Which is true: $\log_b (N^x)= x\log_b N$?
+  $\log_b (N^x)= (\log_b N)^x$?
+\Exercise True or false: $\log_a N = \log_b N / \log_b a$?
 \Exercise Find $\lg 1024$, $\lg \frac{1}{4}$, $\lg 8$.
 \end{ExerciseList}
 
@@ -195,14 +202,14 @@ the smallest integer greater than or equal to $x$.
 \end{ExerciseList}
 
 A particularly interesting function is $\lfloor \log_b N\rfloor$, the
-largest integer not greater than $\log_b N$.  This is 1 more than the
+largest integer not greater than $\log_b N$.  This is 1 less than the
 number of bits needed to express $N$ in base $b$. For example, in base
-$b=10$ we need $\lceil \log_{10} 99\rceil +1= 2$ digits to express
+$b=10$ we need $\lfloor \log_{10} 99\rfloor +1= 2$ digits to express
 $99$. (In other words, $\lfloor \log_{10} N\rfloor$ function is
 \emph{really easy} to compute in your head. Just count the number of
 digits and subtract 1. It's one of the most natural properties of a
 number. Similarly, if the number is written in binary, $\lfloor \lg N\rfloor$ is
-just the number of bits.)
+just the number of bits minus 1.)
 
 \begin{ExerciseList}
 \Exercise How often can you divide a number $N$ by two until you reach $1$
@@ -319,6 +326,14 @@ Still, it's good enough for some small numbers:
 \end{ExerciseList}
 
 \subsection{Harmonic numbers}
+
+[To be written]
+
+\section{Sums}
+
+[To be written]
+
+\section{Growth Rates}
 
 [To be written]
 
