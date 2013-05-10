@@ -10,7 +10,7 @@
 \usepackage{amsmath}
 
 \usepackage[lastexercise,answerdelayed]{exercise}
-\setlength{\Exesep}{1ex}
+\setlength{\Exesep}{.5ex}
 \setlength{\Exetopsep}{1em}
 \renewcommand{\ExerciseListName}{Exercise}
 \renewcommand{\AnswerListName}{}
@@ -52,7 +52,7 @@ the notation $\exp(n)$ for $\mathrm e^n$, called \emph{the exponential function}
 \begin{tikzpicture}[domain=-2:5, scale=.4]
   \draw[very thin,color=gray] (-1.1,-1.1) grid (5.1,17.2);
   \draw[->] (-1.2,0) -- (5.2,0) node[right] {$x$}; \draw[->] (0,-1.2) -- (0,17.2);
-  \draw[domain=-2:4.2, thick,red] plot (\x,{pow(2,\x)}) node[right] {$f(x) = 2^ x$};
+  \draw[domain=0:4.2, thick,red] plot (\x,{pow(2,\x)}) node[right] {$f(x) = 2^ x$};
   \node at (1,2) {$\bullet$};  
   \node at (2,4) {$\bullet$};
   \node at (3,8) {$\bullet$};
@@ -139,8 +139,8 @@ school algorithm for addition.
 \begin{tikzpicture}[domain=-2:4, scale=.8]
   \draw[very thin,color=gray] (-0.1,-1.1) grid (3.9,3.9);
   \draw[->] (-0.2,0) -- (4.2,0) node[right] {$x$}; \draw[->] (0,-1.2) -- (0,4.2) node[above] {$f(x)$};
-\draw[domain=.1:4, thick] plot (\x,{ ln(\x)/ln(2)}) node[right] {$f(x) = \lg x$};
-\draw[domain=-2:3, thick] plot (\x,{pow(2,\x)}) node[right] {$f(x) = 2^ x$};
+\draw[domain=.1:4, thick,red] plot (\x,{ ln(\x)/ln(2)}) node[right] {$f(x) = \lg x$};
+\draw[domain=0:3, thick,red] plot (\x,{pow(2,\x)}) node[right] {$f(x) = 2^ x$};
 \end{tikzpicture}
 \end{marginfigure}
 
@@ -327,14 +327,88 @@ Still, it's good enough for some small numbers:
 
 \subsection{Harmonic numbers}
 
-[To be written]
-
 \section{Sums}
 
 [To be written]
 
 \section{Growth Rates}
 
-[To be written]
 
+
+To express the running time of algorithms we to say things like
+``Bottom-up Mergesort requires uses between $\frac{1}{2}N\lg N$ and
+$N\lg N$ compares and $\sim 2N\lg N$ data moves'' using plain English
+(``between''), tilde notation, and a well-defined cost model
+(comparisons, data moves).
+
+Sometimes, this level of detail is exactly right.
+But in many instances, we are satisfied with more coarse-grained
+expressions and  would like to say things like
+``Mergesort runs in linearithmic time,'' without specifying what is
+counted (comparisons? moves? arithmetic? array acesses?) or what the
+leading coefficient is.
+
+Let $f$ and $g$ be functions. Then $f$ is $O(g)$ if there exist
+positive constants $C$ and $N_0$ such that
+$|f(N)|\leq  |Cg(N)|$ for all $N\geq N_0$.
+
+We pronounce this as ``$f$ is big oh of $g$.''
+It is often written $f=O(g)$ or $f\in O(g)$ and called 
+\emph{asymptotic}, \emph{Laundau}, or just \emph{big-O notation}.
+
+\begin{ExerciseList}
+  \Exercise State the running times of the following code snippet as
+  a function of $N$ is asympototic notation.
+  \begin{quote}
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+C = 0
+for (int i = 0; i < N-2; i++)
+    for (int j = i+1; j < N-1; j++)
+        for (int k = j+1; k < N; k++)
+            C++;
+\end{lstlisting}
+\end{quote} 
+
+  \Exercise As above:
+  \begin{quote}
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+C = 0
+if (N > 10)
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+            C++;
+else 
+    for (int i = 0; i < N; i++)
+            C++;
+\end{lstlisting}
+\end{quote} 
+
+  \Exercise As above:
+  \begin{quote}
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+C = 0
+if (N < 10)
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+            C++;
+else 
+    for (int i = 0; i < N; i++)
+            C++;
+\end{lstlisting}
+\end{quote} 
+
+\Exercise True or false: if $f\sim g$ then $f$ is $O(g)$.
+\Exercise True or false: if $f$ is $O(g)$ then $f\sim g$.
+\Exercise True or false: if $a_kN^k +a_{k-1}N^{k-1} + \cdots a_1 N +
+a_0$ is $O(N^k)$.
+\Exercise True or false: $N$ is $O(N^2)$, $N$ is $O(N)$, $N+\log
+N $ is $O(N)$, $N\log N $ is $O(N)$. \Exercise Order the following
+functions by their growth rate, i.e., write them on a list $f_1(N),$
+$f_2(N),$ $\ldots,$ such that $f_i(N)=O(f_{i+1}(N))$:
+    \begin{multline*}
+      10^{10}, N^2, \log N, \log\log N, (\log N)^2, \sqrt{\log N}, N!,
+      N^N,\\ N^2\log N, N\log n\log\log N, N^{3/2}, 2^N, 2^{N^2}, 3^N,
+      \log (N^2+1)\,.
+    \end{multline*}
+\end{ExerciseList}
 \end{document}
