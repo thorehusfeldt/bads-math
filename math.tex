@@ -1,5 +1,4 @@
-\documentclass{tufte-handout}
-
+\documentclass[a4paper,nobib]{tufte-handout}
 \input{vc}
 
 \usepackage{tikz}\usetikzlibrary{decorations.pathreplacing,matrix}
@@ -8,6 +7,7 @@
 \usepackage{color}
 \usepackage{listings}
 \usepackage{amsmath}
+\usepackage{microtype}
 
 \usepackage[lastexercise,answerdelayed]{exercise}
 \setlength{\Exesep}{.5ex}
@@ -28,24 +28,23 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-  This note covers some of the mathemematical prelimiaries needed to
-  enjoy [SW], the textbook \emph{Algorithms, 4th ed.} by Sedgewick and
-  Wayne and is focussed on the B.Sc. course Algorithms and Data Structures
-  (BADS) at ITU Copenhagen.
+  This note covers some of the mathematical preliminaries needed to
+  enjoy [SW], the textbook \emph{Algorithms, 4th Edition} by Sedgewick and
+  Wayne, and is targeted for the Algorithms and Data Structures course at ITU Copenhagen.
 \end{abstract}
 
-\section{Some functions encountered it the analysis of algorithms}
-\label{sec-1.1}
+\section{Some functions encountered in the analysis of algorithms}%
 
 \subsection{Exponentiation}
 
 For a positive integer $n$ (\emph{the exponent}) and a positive real
 number $b$ (\emph{the base}) we define a shorthand for iterated
 multiplication, called exponentiation:
-\[ b^n = \underbrace{b\times b\times \cdots\times b}_{n \text{ times}}\,.\] 
-(Most of the time $b$ will just be $2$, sometimes it's $10$. In maths
-and physics, it's often the number $\mathrm e=2.7182\ldots$ and one then uses
-the notation $\exp(n)$ for $\mathrm e^n$, called \emph{the exponential function}.)
+\[ b^n = \underbrace{b\times b\times \cdots\times b}_{n \text{ times}}\,.\]
+We read $b^n$ as ``$b$ to the power of $n$'' or simply ``$b$ to the $n$''.
+(In algorithms, $b$ is often $2$, sometimes it's $10$.
+In maths and physics, it's often the number $\mathrm e=2.7182\ldots$ and one then uses
+the notation $\exp(n)$ for~$\mathrm e^n$. The function $\exp$ is called \emph{the exponential function}.)
 
 
 \begin{marginfigure}
@@ -61,9 +60,9 @@ the notation $\exp(n)$ for $\mathrm e^n$, called \emph{the exponential function}
 \end{marginfigure}
 
 \begin{ExerciseList}
-\Exercise For $b>1$ and $n,m\geq 1$, which is true:
-  $b^{nm}=b^n+b^m$?
-  $b^{nm}= (b^n)^m$?
+\Exercise For $b>1$ and $n,m\geq 1$, which of the following equations is true:
+  $b^{nm}=b^n+b^m$, or
+  $b^{nm}= {(b^n)}^m$?
 \Exercise For $n,m\geq 1$, true or false: 
   $b^{n+m}=b^nb^m$?
   $b^{n-m}=b^n/b^m$?
@@ -79,7 +78,7 @@ $2^{(2^2)}$, $2^n+ 2^n$.
 
 There is a way to define what $b^x$ should mean even when $x$ is
 negative, or not even an integer, so that $x\mapsto b^x$ becomes a
-smooth function defined for all reals that agrees $b^n$ when $x=n$ is
+smooth function defined for all reals that agrees with $b^n$ when $x=n$ is
 an integer. This definition requires calculus and lies outside of our
 scope.  The notation makes good sense all the way, for example
 $b^{-1}$ equals $1/b$ so that $b^{N+1}b^{-1}= b^N$, and
@@ -89,13 +88,13 @@ b^{\frac{1}{2}\cdot 2} = b$.
 \subsection{Positional notation}
 
 One of Civilisation's big breakthroughs is to use exponentiation to
-denote numbers is a very compact way. When we write 7143 we mean \[
+denote numbers in a very compact way. When we write 7143, we mean \[
 7\cdot 10^3 + 1\cdot 10^2 + 4\cdot 10^1 + 3\cdot 10^0 \,.\]
-To see how clever this is, compare to the notation used in ancient Rome
+To see how clever this is, compare it to the notation used in ancient Rome
 ({\sc mmmmmmmcxliii}), or worse, to unary notation. 
 Our notation is called ``digital'' or ``base 10'' (because
 $b=10$). \marginnote{{\bf digit}, noun, from Latin \emph{digitus}
-  'finger, toe'. 1. Any of the numerals $0$ to
+  `finger, toe'. 1. Any of the numerals $0$ to
   $9$. 2. A finger or toe.}
 Positional notation is particularly clever when performing
 arithmetic, 
@@ -151,11 +150,11 @@ number $N$ and satisfies $2^{\lg N} = N$. Roughly,
 More generally, the \emph{logarithm base $b$} for any real $b>1$ is a
 function defined for all positive reals $N$ by $\log_b N
 = x$ where $b^x= N$.  (To see that this does indeed define $\log_b N$
-uniquely we would need to observe that $x\mapsto b^x$ is a bijection
-from the reals to the positive reals for $b> 1$. But at this point
+uniquely, we would need to observe that the function $x\mapsto b^x$ is a bijection
+from the reals to the positive reals for $b>1$. But at this point
 we have stopped pretending to give a rigorous presentation anyway.)
 
-Note that $\log_1 5$ or $\lg 0$ and $\lg -1$ are just meaningless
+Note that $\log_1 5$ or $\lg 0$ and $\lg(-1)$ are just meaningless
 collections of ink, like $8+\times$ or $\frac{\sqrt{} }{4}$.
 
 \begin{ExerciseList}
@@ -206,7 +205,7 @@ largest integer not greater than $\log_b N$.  This is 1 less than the
 number of bits needed to express $N$ in base $b$. For example, in base
 $b=10$ we need $\lfloor \log_{10} 99\rfloor +1= 2$ digits to express
 $99$. (In other words, $\lfloor \log_{10} N\rfloor$ function is
-\emph{really easy} to compute in your head. Just count the number of
+\emph{really easy} to compute in your head when $N$ is written in base 10: Just count the number of
 digits and subtract 1. It's one of the most natural properties of a
 number. Similarly, if the number is written in binary, $\lfloor \lg N\rfloor$ is
 just the number of bits minus 1.)
@@ -218,9 +217,9 @@ just the number of bits minus 1.)
 
 \subsection{Factorials}
 
-The factorial function is another iterated multiplication, defined for
+The factorial function is another iterated multiplication, defined for an
 integer $N\geq 1$ as $N!= N\times (N-1)\times \cdots \times 1$. By
-convention, $0!=1$.
+convention, we also define $0!=1$.
 
 
 \begin{ExerciseList}
@@ -231,10 +230,10 @@ convention, $0!=1$.
   since the beginning to Time.
 \end{ExerciseList}
 
-Except for ``fricking' huge'' it's difficult to get a feeling for the
+Except for ``fricking huge'' it's difficult to get a feeling for the
 value of $N!$. A sometimes useful fact, the proof of which is beyond
 the scope of this note, is Stirling's approximation,
-\[ N! \sim \sqrt{2\pi N} \bigl(\frac{N}{e}\bigr) ^N\,.\]
+\[ N! \sim \sqrt{2\pi N} {\left(\frac{N}{\mathrm e}\right)}^N\,.\]
 
 
 \subsection{Binomial coefficients}
@@ -242,17 +241,18 @@ the scope of this note, is Stirling's approximation,
 The number of $k$ element subsets of $\{1,\ldots, N\}$ is denoted
 $C(N,k)$. Note that we are talking about sets, and remember that the sets
 $\{1,2,4\}$ and $\{1,4,2\}$ are the same. 
-For $N=3$ and $k=2$ there are 3 such
+For $N=3$ and $k=2$ there are~$3$ such
 sets:
-\[ \{1,2\}, \{2,3\}, \{1, 3\}\,.\] A confusing
+\[ \{1,2\}, \{2,3\}, \{1, 3\}\,.\]
+A confusing
 way\marginnote{Nevertheless, many textbooks use this.} to define
 $C(N,k)$ is to say ``the number of ways to pick $k$ elements from
 $N$''. I find this confusing because we're \emph{not} actually
 interested in the fact that $\{1,2\}$ can be picked in two ways
 (``first pick $1$, then $2$'', or ``first pick $2$, then $1$''.)
 
-By contrast, consider number ordered sequences of $k$
-elements from $\{1,\ldots, N\}$. For $N=3$ and $k=2$,
+By contrast, consider the number of \emph{ordered} sequences of $k$
+elements from $\{1,\ldots, N\}$. For $N=3$ and $k=2$, the possible sequences are:
 \[ (1,1), (1,2), (1,3), (2,1), (2,2), (2,3),(3,1), (3,2), (3,3)\,.\]
 In general, there are $N^k$ such sequences, so this number does not
 deserve special notation.
@@ -282,7 +282,7 @@ for (int r = 0; r < N-2; r++)
 \end{quote}
 \end{ExerciseList}
 
-Popular notation is $C(N,k)=\binom{N}{k}$. We'll stick to that. 
+A popular notation is $C(N,k)=\binom{N}{k}$. We'll stick to that. 
 By
 convention, we agree that the number of ways to pick $0$ elements is $1$
 (namely ``by not doing anything''), so $\binom{N}{0}= 1$.
@@ -304,7 +304,7 @@ This is why $\binom{N}{k}$ is often called a \emph{binomial coefficient}.
 
 \begin{ExerciseList}
   \Exercise Find the values $\binom{3}{0}$, $\binom{3}{1}$,
-  $\binom{3}{2}$, and $\binom{3}{3}$ by factoring out $(x+y)^3$.
+  $\binom{3}{2}$, and $\binom{3}{3}$ by factoring out ${(x+y)}^3$.
   \Exercise Find $\binom{N}{0}+\binom{N}{1}+\cdots+\binom{N}{N}$.
   \Answer Plug $x=y=1$ into the Binomial Theorem and watch. For a
   combinatorial argument, the sum describes the number of a ways to
@@ -313,7 +313,7 @@ This is why $\binom{N}{k}$ is often called a \emph{binomial coefficient}.
   size. There are $2^N$ subsets.
 \end{ExerciseList}
 
-One can give a closed formula for $C(N,k)$ in terms of factorials:
+Binomial coefficients can be expressed in terms of factorials using the following identity:
 \[ \binom{N}{k}= \frac{N!}{k!(N-k)!}\,. \] 
 This formula is surprisingly
 useless both for getting an intuition about the size of $\binom{N}{k}$ and
@@ -335,8 +335,8 @@ Still, it's good enough for some small numbers:
 
 
 
-To express the running time of algorithms we to say things like
-``Bottom-up Mergesort requires uses between $\frac{1}{2}N\lg N$ and
+To express the running time of algorithms, we say things like
+``Bottom-up Mergesort requires between $\frac{1}{2}N\lg N$ and
 $N\lg N$ compares and $\sim 2N\lg N$ data moves'' using plain English
 (``between''), tilde notation, and a well-defined cost model
 (comparisons, data moves).
@@ -345,20 +345,20 @@ Sometimes, this level of detail is exactly right.
 But in many instances, we are satisfied with more coarse-grained
 expressions and  would like to say things like
 ``Mergesort runs in linearithmic time,'' without specifying what is
-counted (comparisons? moves? arithmetic? array acesses?) or what the
+counted (comparisons? moves? arithmetic? array accesses?) or what the
 leading coefficient is.
 
 Let $f$ and $g$ be functions. Then $f$ is $O(g)$ if there exist
 positive constants $C$ and $N_0$ such that
-$|f(N)|\leq  |Cg(N)|$ for all $N\geq N_0$.
+$|f(N)|\leq  |Cg(N)|$ holds for all $N\geq N_0$.
 
 We pronounce this as ``$f$ is big oh of $g$.''
-It is often written $f=O(g)$ or $f\in O(g)$ and called 
-\emph{asymptotic}, \emph{Laundau}, or just \emph{big-O notation}.
+It is often written $f=O(g)$ or $f\in O(g)$ or $f \le O(g)$, and called 
+\emph{asymptotic}, \emph{Landau}, or just \emph{big-O notation}.
 
 \begin{ExerciseList}
   \Exercise State the running times of the following code snippet as
-  a function of $N$ is asympototic notation.
+  a function of $N$ in asymptotic notation.
   \begin{quote}
 \begin{lstlisting}[basicstyle=\ttfamily\small]
 C = 0
@@ -402,13 +402,16 @@ else
 \Exercise True or false: if $a_kN^k +a_{k-1}N^{k-1} + \cdots a_1 N +
 a_0$ is $O(N^k)$.
 \Exercise True or false: $N$ is $O(N^2)$, $N$ is $O(N)$, $N+\log
-N $ is $O(N)$, $N\log N $ is $O(N)$. \Exercise Order the following
-functions by their growth rate, i.e., write them on a list $f_1(N),$
-$f_2(N),$ $\ldots,$ such that $f_i(N)=O(f_{i+1}(N))$:
-    \begin{multline*}
-      10^{10}, N^2, \log N, \log\log N, (\log N)^2, \sqrt{\log N}, N!,
-      N^N,\\ N^2\log N, N\log N\log\log N, N^{3/2}, 2^N, 2^{N^2}, 3^N,
-      \log (N^2+1)\,.
-    \end{multline*}
+N $ is $O(N)$, $N\log N $ is $O(N)$.
+\Exercise Order the following functions by their growth rate, that is,
+write them as a list $f_1(N),f_2(N),\ldots$, such that $f_i(N)$ is $O(f_{i+1}(N))$:
+    \begin{equation*}
+      \begin{array}{cccccccc}
+      10^{10}& N^2& \log N& \log\log N& (\log N)^2& \sqrt{\log N}& N!&
+      N^N \\
+      \\
+      N^2\log N& N\log N\log\log N& N^{3/2}& 2^N& 2^{N^2}& 3^N& \sqrt{N}\log N &\log (N^2+1)\,.
+      \end{array}
+      \end{equation*}
 \end{ExerciseList}
 \end{document}
